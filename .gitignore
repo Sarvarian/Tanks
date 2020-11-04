@@ -40,6 +40,7 @@
 *.sdf
 *.VC.db
 *.VC.opendb
+CMakeLists.txt
 
 # Precompiled Assets
 SourceArt/**/*.png
