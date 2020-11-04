@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "name": "TanksEditor Editor Win64 Development (Tanks)",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "C:\\Users\\Sarva\\Documents\\Unreal Projects\\Tanks\\.vscode\\compileCommands_Tanks.json",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
