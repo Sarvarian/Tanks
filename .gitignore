@@ -78,3 +78,6 @@ DerivedDataCache/*
 # Clion and CMake files
 .idea/*
 cmake-build-debug/*
+
+# VSCode settings directory
+.vscode/*
