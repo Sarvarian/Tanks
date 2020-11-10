@@ -6,6 +6,28 @@
 #include "GameFramework/Pawn.h"
 #include "Tank.generated.h"
 
+// This struct covers all possible tank input schemes.
+// What the inputs do can vary by tank, but the same inputs will always exist.
+USTRUCT(BlueprintType)
+struct FTankInput
+{
+	GENERATED_BODY()
+
+public:
+	// Sanitized movement input, ready to be used by game logic.
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tank Input")
+	FVector2D MovementInput;
+
+	void Sanitize();
+	void MoveX(float AxisValue);
+	void MoveY(float AxisValue);
+
+private:
+	// Private because it's internal, raw data. Game code should never see this.
+	FVector2D RawMovementInput;
+};
+
+
 UCLASS()
 class TANKS_API ATank : public APawn
 {
@@ -27,6 +49,10 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) override;
 
 private:
+	void MoveX(float AxisValue);
+	void MoveY(float AxisValue);
+
+private:
 	// Which way is the tank facing?
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tank", meta = (AllowPrivateAccess = "true"))
 	class UArrowComponent* TankDirection;
@@ -43,4 +69,8 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tank", meta = (AllowPrivateAccess = "true"))
 	class UCameraComponent* CameraComponent;
 	
+protected:
+	// Out input structure.
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tank Input")
+	FTankInput TankInput;
 };

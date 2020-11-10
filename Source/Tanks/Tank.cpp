@@ -6,6 +6,24 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 
+
+void FTankInput::Sanitize()
+{
+	MovementInput = RawMovementInput.ClampAxes(-1.0f, 1.0f);
+	MovementInput.GetSafeNormal();
+	RawMovementInput.Set(.0f, .0f);
+}
+
+void FTankInput::MoveX(float AxisValue)
+{
+	RawMovementInput.X += AxisValue;
+}
+
+void FTankInput::MoveY(float AxisValue)
+{
+	RawMovementInput.Y += AxisValue;
+}
+
 // Sets default values
 ATank::ATank()
 {
@@ -53,10 +71,26 @@ void ATank::BeginPlay()
 void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	TankInput.Sanitize();
+	UE_LOG(LogTemp, Warning, TEXT("Movement: (%f %f)"), TankInput.MovementInput.X, TankInput.MovementInput.Y);
 }
 
 // Called to bind functionality to input
 void ATank::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	InputComponent->BindAxis("MoveX", this, &ATank::MoveX);
+	InputComponent->BindAxis("MoveY", this, &ATank::MoveY);
+}
+
+void ATank::MoveX(float AxisValue)
+{
+	TankInput.MoveX(AxisValue);
+}
+
+void ATank::MoveY(float AxisValue)
+{
+	TankInput.MoveY(AxisValue);
 }
