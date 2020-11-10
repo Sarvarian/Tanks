@@ -38,4 +38,9 @@ private:
 	// The actor used as the turret.
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tank", meta = (AllowPrivateAccess = "true"))
 	UChildActorComponent* ChildTurret;
+
+	// Out in-game camera.
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tank", meta = (AllowPrivateAccess = "true"))
+	class UCameraComponent* CameraComponent;
+	
 };
