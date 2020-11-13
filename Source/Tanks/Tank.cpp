@@ -10,7 +10,7 @@
 void FTankInput::Sanitize()
 {
 	MovementInput = RawMovementInput.ClampAxes(-1.0f, 1.0f);
-	MovementInput.GetSafeNormal();
+	MovementInput = MovementInput.GetSafeNormal();
 	RawMovementInput.Set(.0f, .0f);
 }
 
@@ -73,7 +73,6 @@ void ATank::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	TankInput.Sanitize();
-	UE_LOG(LogTemp, Warning, TEXT("Movement: (%f %f)"), TankInput.MovementInput.X, TankInput.MovementInput.Y);
 }
 
 // Called to bind functionality to input
